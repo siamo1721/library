@@ -1,0 +1,85 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1773854002225-7
+      author: siamo
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "Harry Potter and the Philosopher's Stone"
+              - column:
+                  name: author
+                  value: "J.K. Rowling"
+              - column:
+                  name: year
+                  valueNumeric: 1997
+              - column:
+                  name: isbn_num
+                  value: "978-0747532699"
+              - column:
+                  name: total_copies
+                  valueNumeric: 5
+              - column:
+                  name: available_copies
+                  valueNumeric: 5
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "The Hobbit"
+              - column:
+                  name: author
+                  value: "J.R.R. Tolkien"
+              - column:
+                  name: year
+                  valueNumeric: 1937
+              - column:
+                  name: isbn_num
+                  value: "978-0007525492"
+              - column:
+                  name: total_copies
+                  valueNumeric: 3
+              - column:
+                  name: available_copies
+                  valueNumeric: 3
+        - insert:
+            tableName: readers
+            columns:
+              - column:
+                  name: surname
+                  value: "Smith"
+              - column:
+                  name: name
+                  value: "John"
+              - column:
+                  name: email
+                  value: "john.smith@example.com"
+              - column:
+                  name: password
+                  value: "$2a$10$ExampleHashedPasswordHere"
+              - column:
+                  name: created_at
+                  valueDate: "2026-03-18T00:00:00"
+
+        - insert:
+            tableName: readers
+            columns:
+              - column:
+                  name: surname
+                  value: "Doe"
+              - column:
+                  name: name
+                  value: "Jane"
+              - column:
+                  name: email
+                  value: "jane.doe@example.com"
+              - column:
+                  name: password
+                  value: "$2a$10$ExampleHashedPasswordHere"
+              - column:
+                  name: created_at
+                  valueDate: "2026-03-18T00:00:00"

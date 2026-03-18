@@ -1,0 +1,126 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1773854002225-1
+      author: siamo
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_books
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+              - column:
+                  name: author
+                  type: VARCHAR(255)
+              - column:
+                  name: year
+                  type: INT
+              - column:
+                  name: isbn_num
+                  type: VARCHAR(255)
+              - column:
+                  name: total_copies
+                  type: INT
+              - column:
+                  name: available_copies
+                  type: INT
+            tableName: books
+  - changeSet:
+      id: 1773854002225-2
+      author: siamo
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_loans
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: book_id
+                  type: BIGINT
+              - column:
+                  name: reader_id
+                  type: BIGINT
+              - column:
+                  name: issued_at
+                  type: DATETIME
+              - column:
+                  name: returned_at
+                  type: DATETIME
+            tableName: loans
+  - changeSet:
+      id: 1773854002225-3
+      author: siamo
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_readers
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: surname
+                  type: VARCHAR(255)
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+              - column:
+                  name: created_at
+                  type: DATETIME
+            tableName: readers
+  - changeSet:
+      id: 1773854002225-4
+      author: siamo
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: email
+            constraintName: uc_readers_email
+            tableName: readers
+  - changeSet:
+      id: 1773854002225-5
+      author: siamo
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: book_id
+            baseTableName: loans
+            constraintName: FK_LOANS_ON_BOOK
+            referencedColumnNames: id
+            referencedTableName: books
+  - changeSet:
+      id: 1773854002225-6
+      author: siamo
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: reader_id
+            baseTableName: loans
+            constraintName: FK_LOANS_ON_READER
+            referencedColumnNames: id
+            referencedTableName: readers
+

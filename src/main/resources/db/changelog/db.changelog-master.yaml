@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: classpath:db/changelog/2026/03/18-01-create-table-changelog.yaml
+  - include:
+      file: classpath:db/changelog/2026/03/18-02-insert-changelog.yaml
