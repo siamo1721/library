@@ -4,7 +4,7 @@ import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Data
-public class BookCreateDto {
+public class CreateBookDto {
 
     @NotBlank(message = "Author cannot be empty")
     @Size(max = 100)

@@ -1,6 +1,6 @@
 package com.example.library.service.Impl;
 
-import com.example.library.dto.BookCreateDto;
+import com.example.library.dto.CreateBookDto;
 import com.example.library.dto.response.BookResponse;
 import com.example.library.entity.Book;
 import com.example.library.exception.AlreadyExistsException;
@@ -22,15 +22,15 @@ public class BookServiceImpl implements BookService {
     private final BookMapper bookMapper;
 
     @Override
-    public BookResponse createBook(BookCreateDto bookCreateDto) {
+    public BookResponse createBook(CreateBookDto createBookDto) {
 
-        if (bookRepository.existsByTitle(bookCreateDto.getTitle())) {
+        if (bookRepository.existsByTitle(createBookDto.getTitle())) {
             throw new AlreadyExistsException("Book already exists");
         }
 
-        Book book = bookMapper.toEntity(bookCreateDto);
+        Book book = bookMapper.toEntity(createBookDto);
 
-        book.setAvailableCopies(bookCreateDto.getTotalCopies());
+        book.setAvailableCopies(createBookDto.getTotalCopies());
 
         book = bookRepository.save(book);
 
