@@ -3,7 +3,8 @@ package com.example.library.service.Impl;
 import com.example.library.dto.BookCreateDto;
 import com.example.library.dto.response.BookResponse;
 import com.example.library.entity.Book;
-import com.example.library.exception.BookAlreadyExistsException;
+import com.example.library.exception.AlreadyExistsException;
+import com.example.library.exception.NotFoundException;
 import com.example.library.mapper.BookMapper;
 import com.example.library.repository.BookRepository;
 import com.example.library.service.BookService;
@@ -24,7 +25,7 @@ public class BookServiceImpl implements BookService {
     public BookResponse createBook(BookCreateDto bookCreateDto) {
 
         if (bookRepository.existsByTitle(bookCreateDto.getTitle())) {
-            throw new BookAlreadyExistsException("Book already exists");
+            throw new AlreadyExistsException("Book already exists");
         }
 
         Book book = bookMapper.toEntity(bookCreateDto);
@@ -38,11 +39,16 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookResponse> getAllBooks() {
-        return List.of();
+        return bookRepository.findAll()
+                .stream()
+                .map(bookMapper::toResponse)
+                .toList();
     }
 
     @Override
     public BookResponse findBookByTitle(String title) {
-        return null;
+        Book book = bookRepository.findByTitle(title)
+                .orElseThrow(() -> new NotFoundException("Book not found"));
+        return bookMapper.toResponse(book);
     }
 }

@@ -22,12 +22,21 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
-    @ExceptionHandler(BookAlreadyExistsException.class)
-    public ResponseEntity<Map<String, Object>> handleBookAlreadyExists(BookAlreadyExistsException ex) {
+    @ExceptionHandler(AlreadyExistsException.class)
+    public ResponseEntity<Map<String, Object>> handleAlreadyExists(AlreadyExistsException ex) {
         Map<String, Object> body = new HashMap<>();
         body.put("status", HttpStatus.CONFLICT.value());
         body.put("error", "Conflict");
         body.put("message", ex.getMessage());
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+    }
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleNotFound(NotFoundException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("status", HttpStatus.NOT_FOUND.value());
+        body.put("error", "Not Found");
+        body.put("message", ex.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 }

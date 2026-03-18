@@ -5,10 +5,9 @@ import com.example.library.dto.response.BookResponse;
 import com.example.library.service.BookService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/book")
@@ -20,5 +19,15 @@ public class BookController {
     @PostMapping("/create")
     BookResponse create(@Valid @RequestBody BookCreateDto bookCreateDto){
         return bookService.createBook(bookCreateDto);
+    }
+
+    @GetMapping()
+    List<BookResponse> getAll(){
+        return bookService.getAllBooks();
+    }
+
+    @GetMapping("/{title}")
+    BookResponse getBook(@Valid @PathVariable String title) {
+        return bookService.findBookByTitle(title);
     }
 }
