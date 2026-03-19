@@ -9,6 +9,7 @@ import com.example.library.exception.AlreadyIssuedException;
 import com.example.library.exception.NotFoundException;
 import com.example.library.mapper.LoanMapper;
 import com.example.library.repository.BookRepository;
+import com.example.library.repository.LoanAnalyticsRepository;
 import com.example.library.repository.LoanRepository;
 import com.example.library.repository.ReaderRepository;
 import com.example.library.service.LoanService;
@@ -26,7 +27,7 @@ public class LoanServiceImpl implements LoanService {
     private final LoanRepository loanRepository;
     private final ReaderRepository readerRepository;
     private final BookRepository bookRepository;
-
+    private final LoanAnalyticsRepository loanAnalyticsRepository;
     private final LoanMapper loanMapper;
 
 
@@ -53,6 +54,8 @@ public class LoanServiceImpl implements LoanService {
 
         bookRepository.save(book);
         loan = loanRepository.save(loan);
+
+        loanAnalyticsRepository.saveLoanEvent(book.getId(), reader.getId(), loan.getIssuedAt());
 
         return loanMapper.toResponse(loan);
     }
